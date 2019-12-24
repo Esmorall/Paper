@@ -1,0 +1,50 @@
+From 4b2f445c4e027419f270cdf383831623e8214cbb Mon Sep 17 00:00:00 2001
+From: Esmorall <diegocastellano08@gmail.com>
+Date: Tue, 24 Dec 2019 14:00:32 -0300
+Subject: [PATCH] Reduce itemframe updates
+
+
+diff --git a/src/main/java/net/minecraft/server/PlayerChunkMap.java b/src/main/java/net/minecraft/server/PlayerChunkMap.java
+index 7ab1012e..6e76113b 100644
+--- a/src/main/java/net/minecraft/server/PlayerChunkMap.java
++++ b/src/main/java/net/minecraft/server/PlayerChunkMap.java
+@@ -1281,8 +1281,8 @@ public class PlayerChunkMap extends IChunkLoader implements PlayerChunk.d {
+             	//Paper starts
+             	if(!(playerchunkmap_entitytracker.tracker instanceof EntityItemFrame)) {
+             		playerchunkmap_entitytracker.updatePlayer(entityplayer);
+-            	} else if(updateItemFrameCounter == 10) {
+-            		playerchunkmap_entitytracker.updatePlayer(entityplayer);
++            	} else if(updateItemFrameCounter == 3) {
++            		playerchunkmap_entitytracker.updatePlayerItemFrame(entityplayer);
+             		updateItemFrameCounter = 0;
+             	}
+             	else {
+@@ -1664,6 +1664,25 @@ public class PlayerChunkMap extends IChunkLoader implements PlayerChunk.d {
+ 
+             }
+         }
++        
++        //Paper stars
++        
++        public void updatePlayerItemFrame(EntityPlayer entityplayer) {
++            org.spigotmc.AsyncCatcher.catchOp("player tracker update"); // Spigot
++            if (entityplayer != this.tracker) {
++                Vec3D vec3d = entityplayer.getPositionVector().d(this.tracker.getPositionVector()); // MC-155077, SPIGOT-5113
++                int i = Math.min(this.b(), (PlayerChunkMap.this.viewDistance - 1) * 16);
++                boolean flag = vec3d.x >= (double) (-i) && vec3d.x <= (double) i && vec3d.z >= (double) (-i) && vec3d.z <= (double) i && this.tracker.a(entityplayer);
++
++                if (!flag) {
++                	if (this.trackedPlayers.remove(entityplayer)) {
++                        this.trackerEntry.a(entityplayer);
++                    }
++                }
++            }
++        }
++        
++        //Paper ends
+ 
+         private int b() {
+             Collection<Entity> collection = this.tracker.getAllPassengers();
+-- 
+2.24.1.windows.2
+
