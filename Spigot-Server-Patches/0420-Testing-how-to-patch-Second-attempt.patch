@@ -1,4 +1,4 @@
-From 4bb85987d79613477bcaf231b5c6dcc5ae0cd7fe Mon Sep 17 00:00:00 2001
+From cc95102777661a218657f43f9f7a2c4d9418b716 Mon Sep 17 00:00:00 2001
 From: Esmorall <luis@minemora.net>
 Date: Sat, 21 Dec 2019 23:25:05 -0300
 Subject: [PATCH] Testing how to patch Second attempt
@@ -17,5 +17,5 @@ index b3ccb9a7..79c28121 100644
                  }
  
 -- 
-2.20.1.windows.1
+2.24.1.windows.2
 

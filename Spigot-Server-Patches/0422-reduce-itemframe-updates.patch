@@ -1,0 +1,56 @@
+From 39622612590ac84511c837975d7fce6c746e1814 Mon Sep 17 00:00:00 2001
+From: Esmorall <diegocastellano08@gmail.com>
+Date: Tue, 24 Dec 2019 03:36:07 -0300
+Subject: [PATCH] reduce itemframe updates
+
+
+diff --git a/src/main/java/net/minecraft/server/PlayerChunkMap.java b/src/main/java/net/minecraft/server/PlayerChunkMap.java
+index bc9f8186..7ab1012e 100644
+--- a/src/main/java/net/minecraft/server/PlayerChunkMap.java
++++ b/src/main/java/net/minecraft/server/PlayerChunkMap.java
+@@ -82,6 +82,7 @@ public class PlayerChunkMap extends IChunkLoader implements PlayerChunk.d {
+     private final Queue<Runnable> z;
+     int viewDistance; // Paper - private -> package private
+     public final com.destroystokyo.paper.util.PlayerMobDistanceMap playerMobDistanceMap; // Paper
++    private int updateItemFrameCounter = 0; // Paper
+ 
+     // CraftBukkit start - recursion-safe executor for Chunk loadCallback() and unloadCallback()
+     public final CallbackExecutor callbackExecutor = new CallbackExecutor();
+@@ -1267,7 +1268,7 @@ public class PlayerChunkMap extends IChunkLoader implements PlayerChunk.d {
+         entityplayer.playerConnection.sendPacket(new PacketPlayOutViewCentre(sectionposition.a(), sectionposition.c()));
+         return sectionposition;
+     }
+-
++    
+     public void movePlayer(EntityPlayer entityplayer) {
+         ObjectIterator<EntityTracker> objectiterator = this.trackedEntities.values().iterator();
+ 
+@@ -1277,9 +1278,17 @@ public class PlayerChunkMap extends IChunkLoader implements PlayerChunk.d {
+             if (playerchunkmap_entitytracker.tracker == entityplayer) {
+                 playerchunkmap_entitytracker.track(this.world.getPlayers());
+             } else {
++            	//Paper starts
+             	if(!(playerchunkmap_entitytracker.tracker instanceof EntityItemFrame)) {
+             		playerchunkmap_entitytracker.updatePlayer(entityplayer);
++            	} else if(updateItemFrameCounter == 10) {
++            		playerchunkmap_entitytracker.updatePlayer(entityplayer);
++            		updateItemFrameCounter = 0;
++            	}
++            	else {
++            		updateItemFrameCounter++;
+             	}
++            	//Paper ends
+             }
+         }
+ 
+@@ -1650,7 +1659,6 @@ public class PlayerChunkMap extends IChunkLoader implements PlayerChunk.d {
+                         this.trackerEntry.b(entityplayer);
+                     }
+                 } else if (this.trackedPlayers.remove(entityplayer)) {
+-                	System.out.println("test 2");
+                     this.trackerEntry.a(entityplayer);
+                 }
+ 
+-- 
+2.24.1.windows.2
+

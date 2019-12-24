@@ -1,11 +1,11 @@
-From 0cce1f0b354016ad2ee93ab497d98691c355f808 Mon Sep 17 00:00:00 2001
+From f8b5169ae959cc52aa2e8374d79ff24cca5ecc99 Mon Sep 17 00:00:00 2001
 From: Esmorall <luis@minemora.net>
 Date: Mon, 23 Dec 2019 19:57:23 -0300
 Subject: [PATCH] Ignore ItemFrames when updating player
 
 
 diff --git a/src/main/java/net/minecraft/server/PlayerChunkMap.java b/src/main/java/net/minecraft/server/PlayerChunkMap.java
-index b3ccb9a7b..927f42717 100644
+index 79c28121..bc9f8186 100644
 --- a/src/main/java/net/minecraft/server/PlayerChunkMap.java
 +++ b/src/main/java/net/minecraft/server/PlayerChunkMap.java
 @@ -19,6 +19,8 @@ import it.unimi.dsi.fastutil.longs.LongSet;
@@ -38,5 +38,5 @@ index b3ccb9a7b..927f42717 100644
          }
  
 -- 
-2.20.1.windows.1
+2.24.1.windows.2
 
