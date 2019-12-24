@@ -1,0 +1,28 @@
+From 7c740b82c491c4b9258c15c559b3e2dce28e5daa Mon Sep 17 00:00:00 2001
+From: Esmorall <diegocastellano08@gmail.com>
+Date: Tue, 24 Dec 2019 15:04:30 -0300
+Subject: [PATCH] remove debug msg and changed counter to 5
+
+
+diff --git a/src/main/java/net/minecraft/server/PlayerChunkMap.java b/src/main/java/net/minecraft/server/PlayerChunkMap.java
+index 8b56edbd8..3a0c0eebe 100644
+--- a/src/main/java/net/minecraft/server/PlayerChunkMap.java
++++ b/src/main/java/net/minecraft/server/PlayerChunkMap.java
+@@ -1281,13 +1281,11 @@ public class PlayerChunkMap extends IChunkLoader implements PlayerChunk.d {
+             	//Paper starts
+             	if(!(playerchunkmap_entitytracker.tracker instanceof EntityItemFrame)) {
+             		playerchunkmap_entitytracker.updatePlayer(entityplayer);
+-            	} else if(updateItemFrameCounter == 3) {
+-            		System.out.println("updating itemframe");
++            	} else if(updateItemFrameCounter == 5) {
+             		playerchunkmap_entitytracker.updatePlayerItemFrame(entityplayer);
+             		updateItemFrameCounter = 0;
+             	}
+             	else {
+-            		System.out.println("updating itemframe counter");
+             		updateItemFrameCounter++;
+             	}
+             	//Paper ends
+-- 
+2.24.1.windows.2
+

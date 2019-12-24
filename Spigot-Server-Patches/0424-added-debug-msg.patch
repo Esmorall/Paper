@@ -1,0 +1,26 @@
+From 846df4d4f7c434534dbd87509e3d1bae55255f14 Mon Sep 17 00:00:00 2001
+From: Esmorall <diegocastellano08@gmail.com>
+Date: Tue, 24 Dec 2019 14:42:05 -0300
+Subject: [PATCH] added debug msg
+
+
+diff --git a/src/main/java/net/minecraft/server/PlayerChunkMap.java b/src/main/java/net/minecraft/server/PlayerChunkMap.java
+index 6e76113b2..8b56edbd8 100644
+--- a/src/main/java/net/minecraft/server/PlayerChunkMap.java
++++ b/src/main/java/net/minecraft/server/PlayerChunkMap.java
+@@ -1282,10 +1282,12 @@ public class PlayerChunkMap extends IChunkLoader implements PlayerChunk.d {
+             	if(!(playerchunkmap_entitytracker.tracker instanceof EntityItemFrame)) {
+             		playerchunkmap_entitytracker.updatePlayer(entityplayer);
+             	} else if(updateItemFrameCounter == 3) {
++            		System.out.println("updating itemframe");
+             		playerchunkmap_entitytracker.updatePlayerItemFrame(entityplayer);
+             		updateItemFrameCounter = 0;
+             	}
+             	else {
++            		System.out.println("updating itemframe counter");
+             		updateItemFrameCounter++;
+             	}
+             	//Paper ends
+-- 
+2.24.1.windows.2
+

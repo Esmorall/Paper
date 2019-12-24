@@ -1,0 +1,21 @@
+From 061d4716e2d423f92728688b773af02aaf9781fa Mon Sep 17 00:00:00 2001
+From: Esmorall <luis@minemora.net>
+Date: Sat, 21 Dec 2019 23:25:05 -0300
+Subject: [PATCH] Testing how to patch Second attempt
+
+
+diff --git a/src/main/java/net/minecraft/server/PlayerChunkMap.java b/src/main/java/net/minecraft/server/PlayerChunkMap.java
+index b3ccb9a7b..79c28121e 100644
+--- a/src/main/java/net/minecraft/server/PlayerChunkMap.java
++++ b/src/main/java/net/minecraft/server/PlayerChunkMap.java
+@@ -1646,6 +1646,7 @@ public class PlayerChunkMap extends IChunkLoader implements PlayerChunk.d {
+                         this.trackerEntry.b(entityplayer);
+                     }
+                 } else if (this.trackedPlayers.remove(entityplayer)) {
++                	System.out.println("test 2");
+                     this.trackerEntry.a(entityplayer);
+                 }
+ 
+-- 
+2.24.1.windows.2
+
